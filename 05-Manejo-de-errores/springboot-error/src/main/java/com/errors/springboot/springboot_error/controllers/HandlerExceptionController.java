@@ -1,9 +1,11 @@
 package com.errors.springboot.springboot_error.controllers;
 
 
+import com.errors.springboot.springboot_error.exceptions.UserNotFoundException;
 import com.errors.springboot.springboot_error.models.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -44,6 +46,16 @@ public class HandlerExceptionController {
         //notFound() no tiene body
         //Se busca el tipo de error con el número de status
         return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(error);
+    }
+
+    @ExceptionHandler({HttpMessageNotWritableException.class, UserNotFoundException.class})
+    public ResponseEntity<?> notWriteExc(Exception e){
+        Error error = new Error();
+        error.setDate(new Date());
+        error.setError("Usuario o Rol no encontrado");
+        error.setMessage(e.getMessage().toString());
+        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(error);
     }
 
 }

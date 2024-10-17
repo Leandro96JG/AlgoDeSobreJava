@@ -11,6 +11,10 @@ public class User {
         return rol;
     }
 
+//    public String getRolname() {
+//        return rol.getName();
+//    }
+
     public void setRol(Rol rol) {
         this.rol = rol;
     }
