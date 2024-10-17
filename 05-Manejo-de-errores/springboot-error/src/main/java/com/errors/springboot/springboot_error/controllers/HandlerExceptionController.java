@@ -13,7 +13,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class HandlerExceptionController {
 
-    //Error Personalizado usando la clase error creada por nosotros
+    //Errores Globales usando la clase error creada por nosotros
     //Qué tipo de error vamos a manejar
     //Las llaves son para cuando queres controlar varios tipos de errores, aca no hace falta pero para recordar
     @ExceptionHandler({ArithmeticException.class})
